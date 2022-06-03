@@ -116,19 +116,25 @@ $ cat logs/log.txt
 ```
 Создадим .yml файл для создания образа
 ```sh
-$ vim .travis.yml
-/lang<CR>o
-services:
-- docker<ESC>
-jVGdo
-script:
-- docker build -t logger .<ESC>
-:wq
+$vim test.yml
+```
+Редактируем .yml файл
+```sh
+name: docker
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: build docker
+        run: docker build -t logger .
 ```
 Пуш всех изменений
 ```sh
 $ git add Dockerfile
-$ git add .travis.yml
+$ git add .test.yml
 $ git commit -m"adding Dockerfile"
 $ git push origin master
 ```
